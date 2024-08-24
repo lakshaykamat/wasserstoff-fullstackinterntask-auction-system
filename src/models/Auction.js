@@ -206,6 +206,40 @@ class Auction {
       }
     }
   }
+
+  /**
+   * Manually complete auctions that should have ended.
+   * This method checks for auctions where the end time has passed,
+   * and updates their status to 'completed' and sets the winner.
+   */
+  async completeAuctions() {
+    try {
+      // Get the current time
+      const currentTime = new Date();
+
+      // Find all auctions that have ended but are still marked as 'ongoing'
+      const auctionsToComplete = await this.Auction.find({
+        endTime: { $lt: currentTime },
+        status: "ongoing",
+      });
+
+      // Loop through each auction and complete it
+      for (const auction of auctionsToComplete) {
+        // Set the status to 'completed'
+        auction.status = "completed";
+
+        // Set the winner to the highestBidder
+        auction.winner = auction.highestBidder;
+
+        // Save the auction with the updated status and winner
+        await auction.save();
+      }
+
+      return auctionsToComplete.length; // Return the number of auctions completed
+    } catch (err) {
+      throw new AppError("Error completing auctions", 500);
+    }
+  }
 }
 
 module.exports = new Auction();

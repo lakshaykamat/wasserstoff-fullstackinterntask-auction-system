@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  // Main card component with a heading and auctions list
+  div.max-w-4xl.mx-auto.p-6.bg-white.border.border-gray-200.rounded-lg.shadow(class='dark:bg-gray-800 dark:border-gray-700')
+    h2.text-2xl.font-bold.mb-4 Ongoing Auctions
+
+    // Loop through auctions and display each in a card
+    each auction in auctions
+      div.mb-4.p-4.bg-gray-50.border.border-gray-200.rounded-lg.shadow-sm(class='dark:bg-gray-800 dark:border-gray-700')
+        h3.text-xl.font-semibold
+          a(href=`/auctions/${auction._id}`) #{auction.itemName}
+        p.mt-2.text-gray-600(class='dark:text-gray-400')
+          | Start Price: $#{auction.startPrice}
+        p.text-gray-600(class='dark:text-gray-400')
+          | Current Bid: $#{auction.currentBid}
+        p.text-gray-600(class='dark:text-gray-400')
+          | Ends At: #{auction.endTime.toLocaleString()}
+        p.text-gray-600(class='dark:text-gray-400') 
+          | Highest Bidder: #{auction.highestBidder ? auction.highestBidder : 'No bids yet'}

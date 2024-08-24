@@ -1,0 +1,21 @@
+doctype html
+html
+    head
+        title Create Auction
+    body
+        h1 Create a New Auction
+        form(action="/api/v1/auctions/" method="POST")
+            div
+                label(for="itemName") Item Name:
+                input(type="text" name="itemName" required minlength="4")
+            div
+                label(for="startTime") Start Time:
+                input(type="datetime-local" name="startTime" required)
+            div
+                label(for="endTime") End Time:
+                input(type="datetime-local" name="endTime" required)
+            div
+                label(for="startPrice") Start Price:
+                input(type="number" name="startPrice" required min="0")
+            div
+                button(type="submit") Create Auction

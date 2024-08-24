@@ -11,7 +11,8 @@ class UserController {
    */
   static async registerUser(req, res, next) {
     try {
-      const user = await User.create(req.body); // Creates a new user
+      // Creates a new user with the provided data
+      const user = await User.create(req.body);
       return res.status(201).json({
         user,
         message: "User registered successfully",
@@ -64,7 +65,7 @@ class UserController {
         message: "User logged in successfully",
       });
     } catch (error) {
-      next(error);
+      next(error); // Passes errors to the global error handler
     }
   }
 
@@ -76,19 +77,27 @@ class UserController {
    */
   static async getUserById(req, res, next) {
     try {
+      // Retrieves a user by their ID
       const user = await User.getById(req.params.id);
       return res.status(200).json({ user });
     } catch (error) {
-      next(error);
+      next(error); // Passes errors to the global error handler
     }
   }
 
+  /**
+   * Retrieves all users
+   * @param {Object} req - Express request object
+   * @param {Object} res - Express response object
+   * @param {Function} next - Express next middleware function
+   */
   static async getUsers(req, res, next) {
     try {
+      // Retrieves all users from the database
       const users = await User.getAll();
       return res.status(200).json(users);
     } catch (error) {
-      next(error);
+      next(error); // Passes errors to the global error handler
     }
   }
 
@@ -100,13 +109,14 @@ class UserController {
    */
   static async updateUser(req, res, next) {
     try {
+      // Updates user data by ID with the provided information
       const updatedUser = await User.updateById(req.params.id, req.body);
       return res.status(200).json({
         user: updatedUser,
         message: "User updated successfully",
       });
     } catch (error) {
-      next(error);
+      next(error); // Passes errors to the global error handler
     }
   }
 
@@ -118,6 +128,7 @@ class UserController {
    */
   static async deleteUser(req, res, next) {
     try {
+      // Deletes a user by their ID
       const deletedUser = await User.deleteById(req.params.id);
       if (!deletedUser) {
         return next(new AppError("User not found", 404));
@@ -126,7 +137,7 @@ class UserController {
         message: "User deleted successfully",
       });
     } catch (error) {
-      next(error);
+      next(error); // Passes errors to the global error handler
     }
   }
 }
