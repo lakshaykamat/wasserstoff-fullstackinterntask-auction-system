@@ -15,7 +15,7 @@ router
   .route("/bid/:auctionId")
   .post(isAuthenticated, AuctionController.placeBidOnAuction);
 
-router.route("/:auctionId").post(isAdmin, AuctionController.updateAuction);
+router.route("/:auctionId").put(isAdmin, AuctionController.updateAuction);
 router.route("/:auctionId").delete(isAdmin, AuctionController.deleteAuction);
 
 module.exports = router;

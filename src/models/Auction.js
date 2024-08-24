@@ -158,6 +158,14 @@ class Auction {
     }
   }
 
+  async deleteAll() {
+    try {
+      await this.Auction.deleteMany();
+    } catch (error) {
+      throw new AppError(error.message || "Error deleting auctions", 500);
+    }
+  }
+
   async placeBid(auctionId, userId, bidAmount) {
     try {
       if (bidAmount <= 0) {

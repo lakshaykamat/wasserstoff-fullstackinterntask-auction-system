@@ -67,6 +67,13 @@ class User {
       throw new AppError(error.message || "Error creating user", 500);
     }
   }
+  async deleteAll() {
+    try {
+      await this.User.deleteMany();
+    } catch (error) {
+      throw new AppError(error.message || "Error deleting user", 500);
+    }
+  }
 
   async getById(id) {
     try {

@@ -65,6 +65,7 @@ class UserController {
         message: "User logged in successfully",
       });
     } catch (error) {
+      console.log(error);
       next(error); // Passes errors to the global error handler
     }
   }
@@ -78,7 +79,7 @@ class UserController {
   static async getUserById(req, res, next) {
     try {
       // Retrieves a user by their ID
-      const user = await User.getById(req.params.id);
+      const user = await User.getById(req.params.userId);
       return res.status(200).json({ user });
     } catch (error) {
       next(error); // Passes errors to the global error handler
